@@ -130,8 +130,10 @@ function fetchStockData(stockSymbol, functionType) {
 }
 
 function pull(event, context, callback) {
+  var message = JSON.parse(event.Records[0].Sns.Message);
+  var stockName = message.name;
+  var stockSymbol = message.symbol;
   var timestamp = new Date().getTime();
-  var stockSymbol = JSON.parse(event.Records[0].Sns.Message).symbol;
 
   fetchStockData(stockSymbol).then(function (resp) {
     var closed_value = {};
@@ -144,6 +146,7 @@ function pull(event, context, callback) {
       TableName: process.env.DYNAMODB_TABLE,
       Item: {
         id: _uuid2.default.v1(),
+        stock_name: stockName,
         stock_symbol: stockSymbol,
         closed_value: closed_value,
         createdAt: timestamp,

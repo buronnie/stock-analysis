@@ -36,7 +36,9 @@ function fetchStockData(stockSymbol, functionType) {
 }
 
 export function pull(event, context, callback) {
-  const stockSymbol = JSON.parse(event.Records[0].Sns.Message).symbol;
+  const message = JSON.parse(event.Records[0].Sns.Message);
+  const stockName = message.name;
+  const stockSymbol = message.symbol;
   const timestamp = new Date().getTime();
 
   fetchStockData(stockSymbol)
@@ -51,6 +53,7 @@ export function pull(event, context, callback) {
         TableName: process.env.DYNAMODB_TABLE,
         Item: {
           id: uuid.v1(),
+          stock_name: stockName,
           stock_symbol: stockSymbol,
           closed_value: closed_value,
           createdAt: timestamp,
