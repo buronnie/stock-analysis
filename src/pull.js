@@ -1,5 +1,4 @@
 import AWS from 'aws-sdk';
-import uuid from 'uuid';
 import fetch from 'node-fetch';
 
 const apiKey = '4BTXXNOJRXYRNEOD';
@@ -52,9 +51,8 @@ export function pull(event, context, callback) {
       const params = {
         TableName: process.env.DYNAMODB_TABLE,
         Item: {
-          id: uuid.v1(),
-          stock_name: stockName,
-          stock_symbol: stockSymbol,
+          name: stockName,
+          symbol: stockSymbol,
           closed_value: closed_value,
           createdAt: timestamp,
           updatedAt: timestamp,

@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "babel-runtime": "",
-    "aws-sdk": "^2.149.0",
-    "uuid": "^2.0.3",
-    "node-fetch": "^1.6.3"
-  }
-}

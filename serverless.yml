@@ -30,6 +30,13 @@ functions:
     handler: src/pull.pull
     events:
       - sns: dispatcher
+  get:
+    handler: src/get.get
+    events:
+      - http:
+          path: stocks/{symbol}
+          method: get
+          cors: true
 
 resources:
   Resources:
@@ -39,11 +46,11 @@ resources:
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: id
+            AttributeName: symbol
             AttributeType: S
         KeySchema:
           -
-            AttributeName: id
+            AttributeName: symbol
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
