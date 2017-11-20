@@ -131,7 +131,7 @@ function fetchStockData(stockSymbol, functionType) {
 
 function pull(event, context, callback) {
   var timestamp = new Date().getTime();
-  var stockSymbol = JSON.parse(event.body).symbol;
+  var stockSymbol = JSON.parse(event.Records[0].Sns.Message).symbol;
 
   fetchStockData(stockSymbol).then(function (resp) {
     var closed_value = {};

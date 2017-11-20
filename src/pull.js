@@ -36,8 +36,8 @@ function fetchStockData(stockSymbol, functionType) {
 }
 
 export function pull(event, context, callback) {
+  const stockSymbol = JSON.parse(event.Records[0].Sns.Message).symbol;
   const timestamp = new Date().getTime();
-  const stockSymbol = JSON.parse(event.body).symbol;
 
   fetchStockData(stockSymbol)
     .then((resp) => {

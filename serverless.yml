@@ -29,10 +29,7 @@ functions:
   pull:
     handler: src/pull.pull
     events:
-      - http:
-          path: stocks
-          method: post
-          cors: true
+      - sns: dispatcher
 
 resources:
   Resources:
